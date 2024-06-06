@@ -4,8 +4,8 @@ import info.clearthought.layout.TableLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import static com.odfin.core.Main.TRIES;
 import static com.odfin.core.Main.wordToGuess;
@@ -85,8 +85,8 @@ public class GamePanel extends JPanel {
             if (checkLetter(guessedUpperCase, wordToGuess)) {
                 System.out.println("YES");
                 for (int i = 0; i < wordToGuess.length; i++) {
-                    if (wordToGuess[i] == guessedUpperCase && !guessedLetters[i]) {
-                        letterLabels[i].setText(String.valueOf(guessedUpperCase));
+                    if (Character.toUpperCase(wordToGuess[i]) == guessedUpperCase && !guessedLetters[i]) {
+                        letterLabels[i].setText(String.valueOf(guessedLetter));
                         guessedLetters[i] = true;
                     }
                 }
@@ -101,6 +101,10 @@ public class GamePanel extends JPanel {
                     JOptionPane.showMessageDialog(null, "You lost", "Game over", JOptionPane.ERROR_MESSAGE);
                     System.exit(0);
                 }
+            }
+            if (!checkWord(guessedLetters)) {
+                JOptionPane.showMessageDialog(null, "You won, the word is: " + Arrays.toString(wordToGuess), "Nice", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
             }
             ((JButton) e.getSource()).setEnabled(false);
         };
@@ -118,6 +122,19 @@ public class GamePanel extends JPanel {
                 return true;
         }
         return false;
+    }
+
+    boolean checkWord(boolean[] guessedLetters) {
+        int guessCount = guessedLetters.length;
+        for (int i = 0; i < guessedLetters.length; i++) {
+            if (guessedLetters[i])
+                guessCount--;
+        }
+
+        if (guessCount == 0)
+            return false;
+        else
+            return true;
     }
 
     @Override
