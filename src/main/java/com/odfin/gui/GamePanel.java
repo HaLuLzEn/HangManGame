@@ -5,7 +5,6 @@ import info.clearthought.layout.TableLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import static com.odfin.core.Main.TRIES;
 import static com.odfin.core.Main.wordToGuess;
@@ -13,7 +12,6 @@ import static com.odfin.core.Main.wordToGuess;
 public class GamePanel extends JPanel {
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    public boolean wrongGuess = false;
 
     private JPanel rightPanel;
     private JPanel buttonsPanel;
@@ -86,7 +84,7 @@ public class GamePanel extends JPanel {
                 System.out.println("YES");
                 for (int i = 0; i < wordToGuess.length; i++) {
                     if (Character.toUpperCase(wordToGuess[i]) == guessedUpperCase && !guessedLetters[i]) {
-                        letterLabels[i].setText(String.valueOf(guessedLetter));
+                        letterLabels[i].setText(String.valueOf(wordToGuess[i]));
                         guessedLetters[i] = true;
                     }
                 }
@@ -98,12 +96,12 @@ public class GamePanel extends JPanel {
                 } else {
                     TRIES = 0;
                     repaint();
-                    JOptionPane.showMessageDialog(null, "You lost", "Game over", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You lost, the word was: " + charToString(wordToGuess), "Game over", JOptionPane.ERROR_MESSAGE);
                     System.exit(0);
                 }
             }
             if (!checkWord(guessedLetters)) {
-                JOptionPane.showMessageDialog(null, "You won, the word is: " + Arrays.toString(wordToGuess), "Nice", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You won, the word is: " + charToString(wordToGuess), "Nice", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
             }
             ((JButton) e.getSource()).setEnabled(false);
@@ -126,15 +124,12 @@ public class GamePanel extends JPanel {
 
     boolean checkWord(boolean[] guessedLetters) {
         int guessCount = guessedLetters.length;
-        for (int i = 0; i < guessedLetters.length; i++) {
-            if (guessedLetters[i])
+        for (boolean guessedLetter : guessedLetters) {
+            if (guessedLetter)
                 guessCount--;
         }
 
-        if (guessCount == 0)
-            return false;
-        else
-            return true;
+        return guessCount != 0;
     }
 
     @Override
@@ -142,12 +137,17 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         triesLabel.setText("Tries left: " + TRIES);
     }
+
+    String charToString(char[] letters) {
+        StringBuilder sb = new StringBuilder();
+        for (char letter : letters) {
+            sb.append(letter);
+        }
+        return sb.toString();
+    }
 }
 
 class HangmanPanel extends JPanel {
-    public HangmanPanel() {
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
