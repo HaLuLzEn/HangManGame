@@ -83,6 +83,7 @@ public class GamePanel extends JPanel {
             char guessedLetter = ((JButton) e.getSource()).getText().charAt(0);
             char guessedUpperCase = Character.toUpperCase(guessedLetter);
             if (checkLetter(guessedUpperCase, wordToGuess)) {
+                System.out.println("YES");
                 for (int i = 0; i < wordToGuess.length; i++) {
                     if (wordToGuess[i] == guessedUpperCase && !guessedLetters[i]) {
                         letterLabels[i].setText(String.valueOf(guessedUpperCase));
@@ -90,6 +91,7 @@ public class GamePanel extends JPanel {
                     }
                 }
             } else {
+                System.out.println("NO");
                 if (TRIES > 1) {
                     TRIES--;
                     repaint();
@@ -133,87 +135,85 @@ class HangmanPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(3));
+        g2.setStroke(new BasicStroke(5));
         g2.setColor(Color.BLACK);
-        //if () {
-            switch (TRIES) {
-                case 9:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    break;
-                case 8:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    break;
-                case 7:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    break;
-                case 6:
-                    TRIES--;
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    break;
-                case 5:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    g2.drawOval(90, 40, 20, 20); // head
-                    break;
-                case 4:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    g2.drawOval(90, 40, 20, 20); // head
-                    g2.drawLine(100, 60, 100, 120); // body
-                    break;
-                case 3:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    g2.drawOval(90, 40, 20, 20); // head
-                    g2.drawLine(100, 60, 100, 120); // body
-                    g2.drawLine(100, 70, 80, 90); // left arm
-                    break;
-                case 2:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    g2.drawOval(90, 40, 20, 20); // head
-                    g2.drawLine(100, 60, 100, 120); // body
-                    g2.drawLine(100, 70, 80, 90); // left arm
-                    g2.drawLine(100, 70, 120, 90); // right arm
-                    break;
-                case 1:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    g2.drawOval(90, 40, 20, 20); // head
-                    g2.drawLine(100, 60, 100, 120); // body
-                    g2.drawLine(100, 70, 80, 90); // left arm
-                    g2.drawLine(100, 70, 120, 90); // right arm
-                    g2.drawLine(100, 120, 80, 150); // left leg
-                    break;
-                case 0:
-                    g2.drawLine(60, 20, 60, 200); // vertical line
-                    g2.drawLine(20, 200, 100, 200); // horizontal line
-                    g2.drawLine(60, 20, 100, 20); // horizontal line
-                    g2.drawLine(100, 20, 100, 40); // short vertical line
-                    g2.drawOval(90, 40, 20, 20); // head
-                    g2.drawLine(100, 60, 100, 120); // body
-                    g2.drawLine(100, 70, 80, 90); // left arm
-                    g2.drawLine(100, 70, 120, 90); // right arm
-                    g2.drawLine(100, 120, 80, 150); // left leg
-                    g2.drawLine(100, 120, 120, 150); // right leg
-                    break;
-            }
-      //  }
+        switch (TRIES) {
+            case 9:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                break;
+            case 8:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                break;
+            case 7:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                break;
+            case 6:
+                TRIES--;
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                break;
+            case 5:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                g2.drawOval(180, 80, 40, 40); // head
+                break;
+            case 4:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                g2.drawOval(180, 80, 40, 40); // head
+                g2.drawLine(200, 120, 200, 240); // body
+                break;
+            case 3:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                g2.drawOval(180, 80, 40, 40); // head
+                g2.drawLine(200, 120, 200, 240); // body
+                g2.drawLine(200, 140, 160, 180); // left arm
+                break;
+            case 2:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                g2.drawOval(180, 80, 40, 40); // head
+                g2.drawLine(200, 120, 200, 240); // body
+                g2.drawLine(200, 140, 160, 180); // left arm
+                g2.drawLine(200, 140, 240, 180); // right arm
+                break;
+            case 1:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                g2.drawOval(180, 80, 40, 40); // head
+                g2.drawLine(200, 120, 200, 240); // body
+                g2.drawLine(200, 140, 160, 180); // left arm
+                g2.drawLine(200, 140, 240, 180); // right arm
+                g2.drawLine(200, 240, 160, 300); // left leg
+                break;
+            case 0:
+                g2.drawLine(120, 40, 120, 400); // vertical line
+                g2.drawLine(40, 400, 200, 400); // horizontal line
+                g2.drawLine(120, 40, 200, 40); // horizontal line
+                g2.drawLine(200, 40, 200, 80); // short vertical line
+                g2.drawOval(180, 80, 40, 40); // head
+                g2.drawLine(200, 120, 200, 240); // body
+                g2.drawLine(200, 140, 160, 180); // left arm
+                g2.drawLine(200, 140, 240, 180); // right arm
+                g2.drawLine(200, 240, 160, 300); // left leg
+                g2.drawLine(200, 240, 240, 300); // right leg
+                break;
+        }
     }
 }
