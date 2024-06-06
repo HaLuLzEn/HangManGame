@@ -1,0 +1,4 @@
+Word,Apfel,Buch,Haus,Giraffe,Hund,Tisch,Lehrer,Krankenhaus,Schule,Wolke,
+Eis,Fahrrad,Schmetterling,Polizist,König,Klavier,Lampe,Schokolade,Elefant,Pizza,
+Doktor,Universität,Friseur,Bäcker,Zebra,Computer,Stadt,Flughafen,Telefon,Katze,Fisch,
+Kaffee,Stuhl,Baum,Garten,Auto,Sonne,Mond,Zahnarzt,Frühstück,Herbst,Turbolader
