@@ -5,11 +5,14 @@ import info.clearthought.layout.TableLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import static com.odfin.core.Main.TRIES;
 import static com.odfin.core.Main.wordToGuess;
 
 public class GamePanel extends JPanel {
+    final LabelMouse labelMouse = new LabelMouse();
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
 
@@ -56,6 +59,7 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < letterLabels.length; i++) {
             letterLabels[i] = new JLabel("_");
             letterLabels[i].setFont(LETTER_FONT);
+            letterLabels[i].addMouseListener(labelMouse);
             lettersPanel.add(letterLabels[i]);
         }
 
@@ -232,5 +236,35 @@ class HangmanPanel extends JPanel {
                 g2.drawLine(200, 240, 240, 300); // right leg
                 break;
         }
+    }
+}
+
+class LabelMouse implements MouseListener {
+private int prev_height;
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        System.out.println("Someone tries to play lukas' Uno game");
+        JOptionPane.showMessageDialog(null, "If you want to perform this action, please visit https://github.com/Redstoner-2019/UNO.git", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+        prev_height = ((JLabel) mouseEvent.getSource()).getY();
+        ((JLabel) mouseEvent.getSource()).setLocation(((JLabel) mouseEvent.getSource()).getX(), prev_height - 20);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+        ((JLabel) mouseEvent.getSource()).setLocation(((JLabel) mouseEvent.getSource()).getX(), prev_height);
     }
 }
